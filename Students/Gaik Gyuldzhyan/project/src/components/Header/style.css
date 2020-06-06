@@ -1,9 +1,25 @@
 .header {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
     border-bottom: 1px solid darkslategray;
     background-color: #051e2c;
+}
+
+a {
+    align-self: center;
+    width: 5%;
+}
+
+button {
+    background-color: #051e2c;
+    border: 0;
+    color: white;
 }
 
 .header-name {
     margin: 0;
     line-height: 70px;
+    text-align: center;
+    width: 95%;
 }

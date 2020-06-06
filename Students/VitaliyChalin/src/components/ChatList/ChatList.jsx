@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { addChat } from '../../store/actions/chats_actions.js';
-import { addProfile } from '../../store/actions/profiles_actions.js';
+import { addChat, loadChats } from '../../store/actions/chats_actions.js';
+import { addProfile, loadProfiles } from '../../store/actions/profiles_actions.js';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { PropTypes } from 'prop-types';
@@ -11,9 +11,20 @@ import {List, ListItem} from 'material-ui/List';
 import { TextField } from 'material-ui';
 import FlatButton from 'material-ui/FlatButton';
 import Avatar from 'material-ui/Avatar';
-import CommunicationChatBubble from 'material-ui/svg-icons/communication/chat-bubble';
+import IconButton from 'material-ui/IconButton';
+import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
+import IconMenu from 'material-ui/IconMenu';
+import MenuItem from 'material-ui/MenuItem';
+import Reply from 'material-ui/svg-icons/content/reply';
+import Person from 'material-ui/svg-icons/social/person';
+import Delete from 'material-ui/svg-icons/action/delete';
 import './style.css';
-import Profile from '../Profile/Profile.jsx';
+
+const iconButtonElement = (
+    <IconButton>
+      <MoreVertIcon color={ '#e0e5e9'} />
+    </IconButton>
+  );
 
 const styles = {
     inputField: {
@@ -25,6 +36,15 @@ const styles = {
         fontWeight: '400'
     }
 };
+
+const listStyle = (
+    {
+        display: "flex",
+        justifyContent: "center",
+        width: "",
+        backgroundColor: "#f0f5f9"
+    }
+);
 
 class ChatList extends React.Component {
     static propTypes = {
@@ -65,6 +85,11 @@ class ChatList extends React.Component {
         }
     }
 
+    componentDidMount() {
+        this.props.loadChats();
+        this.props.loadProfiles();
+    }
+
     render() {        
         
         let { chats, profiles, widthCont } = this.props;
@@ -81,8 +106,44 @@ class ChatList extends React.Component {
                         className="user__avatar"
                     />
                 }
-                rightIcon={<CommunicationChatBubble />}
-                hoverColor="#41506d"
+                rightIconButton={
+                    <IconMenu
+                        iconButtonElement={iconButtonElement}
+                        useLayerForClickAway={ true }
+                        /* open={ true } */
+                        targetOrigin={ {vertical: 'top', horizontal: 'right'} }
+                        listStyle={ listStyle }
+                    >
+                        <MenuItem
+                            className="menu__item"
+                            onClick={ () => this.handleNavigate(`/chat/${ key }/`) }
+                        >
+                            <Reply
+                                color="#41506d"
+                                hoverColor="#252932"
+                                className="menu-icon menu-icon__reply"
+                            />
+                        </MenuItem>
+                        <MenuItem
+                            className="menu__item"
+                            onClick={ () => this.handleNavigate(`/chat/${ key }/profile/`) }
+                        >
+                            <Person
+                                color="#41506d"
+                                hoverColor="#252932"
+                                className="menu-icon menu-icon__share"
+                            />
+                        </MenuItem>
+                        <MenuItem className="menu__item">
+                            <Delete
+                                color="#41506d"
+                                hoverColor="#252932"
+                                className="menu-icon menu-icon__delete"
+                            />
+                        </MenuItem>
+                    </IconMenu>
+                }
+                hoverColor="#34415a"
                 onClick={ () => this.handleNavigate(`/chat/${ key }/`) }
             />
         ));
@@ -124,6 +185,15 @@ const mapStateToProps = ({ chatsReducer, profileReducer }) => ({
     profiles: profileReducer.profiles
 });
 
-const mapDispatchToProps = dispatch => bindActionCreators({ addChat, addProfile, push }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators(
+    {
+        addChat,
+        loadChats,
+        addProfile,
+        loadProfiles,
+        push
+    },
+    dispatch
+);
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChatList);

@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import { PropTypes } from 'prop-types';
 import { TextField, FloatingActionButton } from 'material-ui';
 import SendIcon from 'material-ui/svg-icons/content/send';
+import CircularProgress from 'material-ui/CircularProgress';
 
 import './style.css';
 
 import Message from '../Message/Message.jsx';
 
-import { sendMessage } from '../../store/actions/messages_actions.js';
+import { sendMessage, loadMessages } from '../../store/actions/messages_actions.js';
 import { bindActionCreators } from 'redux';
 import connect from 'react-redux/es/connect/connect';
 
@@ -17,6 +18,10 @@ class MessagesField extends Component {
         this.state = {
             text: ''
         }
+    }
+
+    static propTypes = {
+        isLoading: PropTypes.bool.isRequired,
     }
 
     handleSend = (sender, text) => {
@@ -43,8 +48,30 @@ class MessagesField extends Component {
         this.props.sendMessage(messageId, sender, text, chatId);
     }
 
+    componentDidMount() {
+        this.props.loadMessages();
+    }
+
     render() {
-        let { messages, chatId, widthCont } = this.props;
+        let { messages, chatId, widthCont, isLoading } = this.props;
+
+        const loaderWrapperStyle = (
+            {
+                width: "70%",
+                height: "100%",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center"
+            }
+        );
+
+        if (isLoading) {
+            return <><CircularProgress
+                        style= { loaderWrapperStyle }
+                        color="#41506d"
+                        size={ 80 }
+                    /></>
+        }
 
         let msgArr = [];
 
@@ -89,9 +116,10 @@ class MessagesField extends Component {
 }
 
 const mapStateToProps = ({ msgReducer }) => ({
-    messages: msgReducer.messages
+    messages: msgReducer.messages,
+    isLoading: msgReducer.isLoading
 });
 
-const mapDispatchToProps = dispatch => bindActionCreators({ sendMessage }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({ sendMessage, loadMessages }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(MessagesField);

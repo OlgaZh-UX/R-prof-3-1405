@@ -7,7 +7,7 @@ import Message from '../Message/Message.jsx';
 
 import "./style.css";
 
-import { sendMessage } from '../../store/actions/messages_actions.js';
+import { sendMessage, loadMessages } from '../../store/actions/messages_actions.js';
 import { bindActionCreators } from 'redux';
 import connect from 'react-redux/es/connect/connect';
 
@@ -40,7 +40,11 @@ class MessagesField extends Component {
         } else {
             this.handleSend(evt.target.value, this.props.user);
         }
-    };   
+    };
+    
+    componentDidMount() {
+        this.props.loadMessages();
+    };
 
     render() {
         let { messages } = this.props;
@@ -88,6 +92,6 @@ const mapStateToprops = ({ msgReducer, profReducer }) => ({
     user: profReducer.user
 });
 
-const mapDispatchToProps = dispatch => bindActionCreators({ sendMessage }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({ sendMessage, loadMessages }, dispatch);
 
 export default connect(mapStateToprops, mapDispatchToProps)(MessagesField);

@@ -1,22 +1,37 @@
 import React, { Component } from 'react';
+import { Switch, Route } from 'react-router-dom';
 
-import { Switch, Route } from 'react-router-dom'
+import App from './components/App.jsx';
+import UserProfile from './components/UserProfile/UserProfile.jsx';
 
-import App from './components/App.jsx'
-import UserProfile from './components/UserProfile/UserProfile.jsx'
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import shortid from 'shortid';
 
 class Router extends Component {
     render() {
+        let RouteArr = [];
+        let { chats } = this.props;
+        Object.keys(chats).map(key => {
+            RouteArr.push(
+                <Route key = {shortid.generate()} path = { `/chat/${ key }` } render = { () => <App chatId = { key } /> } exact />
+            )
+        })
         return (
             <Switch>
                 <Route path = '/' component = { App } exact/>
-                <Route path = '/chat/1/' render = { () => <App chatId = { 1 } /> } exact />
-                <Route path = '/chat/2/' render = { () => <App chatId = { 2 } /> } exact />
-                <Route path = '/profile/' component = { UserProfile } exact />
+                {RouteArr}
+                <Route path = '/profile' component = { UserProfile } exact />
             </Switch>
         )
         
     }
 }
 
-export default Router;
+const mapStateToProps = ({ chtReducer }) => ({ 
+    chats: chtReducer.chats
+});
+
+ const mapDispatchToProps = dispatch => bindActionCreators({ }, dispatch);
+ 
+ export default connect(mapStateToProps, mapDispatchToProps)(Router);

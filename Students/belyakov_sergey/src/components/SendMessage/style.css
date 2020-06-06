@@ -1,6 +1,7 @@
 .send-message-form {
   display: flex;
   align-items: flex-end;
+  margin-bottom: 10px;
 }
 
 .send-message-btn {

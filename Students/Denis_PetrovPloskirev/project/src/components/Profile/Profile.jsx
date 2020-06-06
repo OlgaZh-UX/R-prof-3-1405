@@ -38,6 +38,16 @@ class Profile extends React.Component {
   }
 
   render() {
+    let backBtn;
+    if (this.props.user) {
+      backBtn = (
+        <Link to = '/chats/'>
+          <div className = "link404 blocklink404">back</div>
+        </Link>
+      )
+    } else {
+      backBtn = null
+    }
     return (
         <div className = "profileWrapper">
           <h1 className = "chatName"> Profile </h1>
@@ -66,7 +76,7 @@ class Profile extends React.Component {
               className = 'bioInput'
               onChange = { (evt) => this.handleChange(evt, 'bio') }
             />
-            <Link to = '/chat/1/'>
+            <Link to = '/chats/'>
               <RaisedButton 
                 disabled = { !(this.state.user || this.props.user) }
                 backgroundColor = 'darkgoldenrod'
@@ -76,6 +86,7 @@ class Profile extends React.Component {
                 <Done style = { {color: '#ccc'} } />
               </RaisedButton>
             </Link>
+            { backBtn }
           </div>
         </div>
     )

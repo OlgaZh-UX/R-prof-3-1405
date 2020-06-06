@@ -8,10 +8,10 @@ import Header from './Header/Header.jsx';
 
 class App extends Component {
     static propTypes = {
-        chatId: PropTypes.number
+        chatId: PropTypes.string
     }
     static defaultProps = {
-        chatId: 1
+        chatId: '1'
     }
     state = { user: 'User1' }
 
@@ -21,7 +21,7 @@ class App extends Component {
             <Header chatId = {this.props.chatId} />
                 <div className= "content d-flex w-100">
                     <ChatList />
-                    <MessageField user= {this.state.user} />
+                    <MessageField user= {this.state.user} chatId = { this.props.chatId } />
                 </div>
             </div>
         )

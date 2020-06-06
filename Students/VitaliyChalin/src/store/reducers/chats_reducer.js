@@ -1,22 +1,9 @@
 import update from  'react-addons-update';
 
-import { ADD_CHAT } from '../actions/chats_actions.js';
+import { ADD_CHAT, SUCCESS_CHAT_LOADING } from '../actions/chats_actions.js';
 
 let initialStore = {
-    chats: {
-        1: {    
-            title: 'Brendan Lim',
-            messagesList: []
-        },
-        2: {
-            title: 'Eric Hoffman',
-            messagesList: []
-        },
-        3: {
-            title: 'Чат 3',
-            messagesList: []
-        }
-    }
+    chats: {}
 }
 
 export default function chatsReducer(store = initialStore, action) {
@@ -34,6 +21,11 @@ export default function chatsReducer(store = initialStore, action) {
                     }
                 }
             });
+        }
+        case SUCCESS_CHAT_LOADING: {
+            return update(store, {
+                chats: { $set: action.payload }
+            })
         }
         default:
             return store;

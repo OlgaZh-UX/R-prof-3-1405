@@ -2,7 +2,7 @@ import {SET_NAME} from '../actions/profile_actions.js';
 
 
 const initialStore = {
-  user: ''
+  user: 'Me'
 }
 
 export default function profReducer(store = initialStore, action) {

@@ -2,8 +2,8 @@ import React from 'react'
 import './style.css'
 
 export default (props) => {
-  const {author, message} = props
-  const itUser = author === 'user'
+  const {author, message, user} = props
+  const itUser = author === user
 
   return (
     <div className="message-field">

@@ -1,62 +1,78 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
 
-import { AccountCircle } from '@material-ui/icons';
 import { Link } from 'react-router-dom';
+
+
+const appBarStyles = {
+  flexGrow: 1,
+  borderRadius: "1.5em",
+  top: '1em',
+}
+
+const chatTitleStyles = {
+  flexGrow: 1
+}
+
+const profileButtonStyles = {
+  alignContent: 'center',
+  justifyContent: 'center',
+  textDecoration: 'none',
+}
+
+const buttonStyles = {
+  color: 'whitesmoke',
+  outline: 'none'
+}
 
 export default class Header extends React.Component {
 
     static propTypes = {
-      chatId: PropTypes.number
+      chatId: PropTypes.string
     } 
 
     static defaultProps = {
-      chatId: 1
+      chatId: '1'
     }
 
-
+  
 
     render() {
 
-        
         return (
       <AppBar position="relative"
-        style={{
-            flexGrow: 1,
-            borderRadius: "1.5em",
-            top: '1em',
-        }}>
+        style={appBarStyles}>
           <Toolbar>
 
-              <IconButton edge="start" 
-                style={{marginRight: '1em'}} 
-                color="inherit">
-              </IconButton>
-
                 <Typography 
-                  style={{flexGrow: 1}} 
+                  style={chatTitleStyles} 
                   variant="h6">
-                  Chat room { this.props.chatId }
+                  { this.props.chatTitle }
                 </Typography>
                     
-                        
-                          <Button>
-                            <Link to='/profile/'
-                              style={{
-                                textDecoration: 'none',
-                                color: 'whitesmoke',
-                              }}>
-                              <AccountCircle />
+                          <Link to='/profile/'
+                              style={profileButtonStyles}>
+                              <Button
+                                 style={buttonStyles}>
+                                  PROFILE
+                            
+                              </Button>
                             </Link>
-                          </Button>
+
+                              <Link to='/auth/'>
+                                <Button 
+                                  style={buttonStyles} >
+                                  LOGIN
+                                </Button>
+                              </Link>
                         
           </Toolbar>
         </AppBar>
         )
     }
 }
+

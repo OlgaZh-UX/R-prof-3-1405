@@ -67,3 +67,7 @@
 .user__input {
     color: #fff !important;
 }
+
+.menu__item:hover {
+    background-color: transparent !important;
+}

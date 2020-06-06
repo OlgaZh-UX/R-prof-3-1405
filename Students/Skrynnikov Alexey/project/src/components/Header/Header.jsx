@@ -12,13 +12,13 @@ export default class Header extends React.Component {
         chatId: PropTypes.string
     };
     static defaultProps = {
-        chatId: "1"
+        chatId: "Bot 1"
     };
 
     render() {
         return(
             <div className="header">
-                <h1> Chat Room { this.props.chatId } </h1>
+                <h1> { this.props.chatId } </h1>
                 <Link to = "/profile/">
                     <button className = "button profileBtn"> 
                         <ProfileIcon color = "rgb(99, 146, 148)" hoverColor = "rgb(6, 121, 159)" /> 

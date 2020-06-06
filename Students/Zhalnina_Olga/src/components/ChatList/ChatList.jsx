@@ -14,6 +14,8 @@ import AddIcon from "material-ui/svg-icons/content/add";
 import { addChat } from "../../store/actions/chats_actions.js";
 import { bindActionCreators } from "redux";
 
+import connect from 'react-redux/es/connect/connect';
+
 const users = [
   {
     id: 1,

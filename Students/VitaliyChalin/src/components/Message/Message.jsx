@@ -1,28 +1,61 @@
 import React from 'react';
 import {List, ListItem} from 'material-ui/List';
 import Avatar from 'material-ui/Avatar';
-import grey400 from 'material-ui/styles/colors';
 import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
+import Reply from 'material-ui/svg-icons/content/reply';
+import Share from 'material-ui/svg-icons/social/share';
+import Delete from 'material-ui/svg-icons/action/delete';
 import './style.css';
 
+const listStyle = (
+    {
+        display: "flex",
+        justifyContent: "center",
+        width: "",
+        backgroundColor: "#f0f5f9"
+    }
+);
+
 const iconButtonElement = (
-    <IconButton
-      touch={true}
-      tooltip="more"
-      tooltipPosition="bottom-left"
-    >
-      <MoreVertIcon color={grey400} />
+    <IconButton>
+      <MoreVertIcon />
     </IconButton>
-  );
+);
   
 const rightIconMenu = (
-<IconMenu iconButtonElement={iconButtonElement}>
-    <MenuItem>Reply</MenuItem>
-    <MenuItem>Forward</MenuItem>
-    <MenuItem>Delete</MenuItem>
+<IconMenu
+    iconButtonElement={ iconButtonElement }
+    useLayerForClickAway={ true }
+    /* open={ true } */
+    targetOrigin={
+        {vertical: 'top', horizontal: 'right'}
+    }
+    listStyle={ listStyle }
+>
+    <MenuItem className="menu__item">
+        <Reply
+            color="#41506d"
+            hoverColor="#252932"
+            className="menu-icon menu-icon__reply"
+        />
+    </MenuItem>
+    <MenuItem className="menu__item">
+        <Share
+            color="#41506d"
+            hoverColor="#252932"
+            className="menu-icon menu-icon__share"
+        />
+    </MenuItem>
+    <MenuItem className="menu__item">
+        <Delete
+            color="#41506d"
+            hoverColor="#252932"
+            className="menu-icon menu-icon__delete"
+        />
+    </MenuItem>
 </IconMenu>
 );
 

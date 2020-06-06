@@ -6,7 +6,7 @@ export default (props) => {
     let { sender, text } = props;
 
         return (
-        <div className="message" style= { { alignSelf: !sender ? 'flex-start' : 'flex-end', backgroundColor: !sender ? '#ffffe0' : ''} }>
+        <div className="message" style= { { alignSelf: sender == 'Me' ? 'flex-end' : 'flex-start', backgroundColor: sender == 'Me' ? '' : '#ffffe0'} }>
             { sender && <strong>{ sender }</strong> }
             { !sender && <strong>Bot</strong> }
             <p>{ props.sender || (!props.sender && text) ? text : 'cyber answer...' }</p>

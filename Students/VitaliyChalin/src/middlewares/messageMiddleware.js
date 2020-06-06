@@ -17,5 +17,5 @@ export default store => next => (action) => {
                 , 1000)
             }
     }
-    return next(action)
+    return next(action);
 }

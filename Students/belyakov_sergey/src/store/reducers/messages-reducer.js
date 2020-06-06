@@ -7,13 +7,13 @@ const initialStore = {
   messages: {
     1: {
       author: 'bot',
-      message: 'Hello!',
+      message: 'Hello, this is Chat 1',
       roomId: 1
     },
     2: {
       author: 'bot',
-      message: 'Send me message)',
-      roomId: 1
+      message: 'By, this is Chat 2',
+      roomId: 2
     }
   }
 }

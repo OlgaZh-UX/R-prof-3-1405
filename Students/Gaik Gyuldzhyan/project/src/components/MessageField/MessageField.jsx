@@ -1,10 +1,13 @@
 // container
 import React, {Component} from 'react';
 // import ReactDom from 'react-dom';
+import PropTypes from "prop-types" ;
+
+import CircularProgress from 'material-ui/CircularProgress' ;
 
 import Message from '../Message/Message.jsx';
 
-import {sendMessage} from '../../store/actions/messages_actions.js';
+import {sendMessage, loadMessages} from '../../store/actions/messages_actions.js';
 import {bindActionCreators} from 'redux';
 import connect from 'react-redux/es/connect/connect';
 
@@ -35,8 +38,15 @@ class MessagesField extends Component {
         evt.keyCode !== 13 ? this.setState({ text: evt.target.value }) : this.handleSend( evt.target.value ,'Me')
     }
 
+    componentDidMount() {
+        this.props.loadMessages();
+    }
 
     render() { 
+        if ( this.props.isLoading ) {
+            return <CircularProgress />
+        }
+
         let {messages} = this.props;
 
         let msgArr = []
@@ -65,7 +75,7 @@ class MessagesField extends Component {
                     value={
                         this.state.text
                     }/>                 
-                <button className="msg-input-btn"
+                <button className="msg-input-btn" 
                     onClick={
                         () => this.handleSend(this.state.text, 'Me')
                 }>
@@ -78,7 +88,7 @@ class MessagesField extends Component {
         </div>)
     }
 }
-const mapStateToProps = ({msgReducer}) => ({messages: msgReducer.messages});
-const mapDispatchToProps = dispatch => bindActionCreators({sendMessage}, dispatch);
+const mapStateToProps = ({msgReducer}) => ({messages: msgReducer.messages, isLoading: msgReducer.isLoading});
+const mapDispatchToProps = dispatch => bindActionCreators({sendMessage, loadMessages}, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(MessagesField);
 

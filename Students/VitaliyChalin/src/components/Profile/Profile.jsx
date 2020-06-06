@@ -1,12 +1,16 @@
 import React from 'react';
 
-import { addProfile } from '../../store/actions/profiles_actions.js';
+import { addProfile, loadProfiles } from '../../store/actions/profiles_actions.js';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import './style.css';
 
 class Profile extends React.Component {
+
+    componentDidMount() {
+        this.props.loadProfiles();
+    }
 
     render () {
         let { profiles } = this.props;
@@ -16,7 +20,7 @@ class Profile extends React.Component {
         profiles[ chatId ].avatar ? ava = profiles[ chatId ].avatar : ava = 'https://via.placeholder.com/128';
 
         return (
-            <div className="profile__wrapper" style={ { width: '19.7%' } }>
+            <div className="profile__wrapper" style={ { width: '24.7%' } }>
                 <img className="profile__ava" src={ ava } alt={ profiles[ chatId ].userName } />
                 <div className="profile__body">
                     <h2 className="profile__name">{ profiles[ chatId ].userName }</h2>
@@ -31,6 +35,6 @@ const mapStateToProps = ({ profileReducer }) => ({
     profiles: profileReducer.profiles
 });
 
-const mapDispatchToProps = dispatch => bindActionCreators({ addProfile }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({ addProfile, loadProfiles }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);

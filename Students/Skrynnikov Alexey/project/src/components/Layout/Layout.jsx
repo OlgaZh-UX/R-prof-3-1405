@@ -19,7 +19,7 @@ export default class Layout extends React.Component {
     render() {
         return (
             <div className = 'globalWrapper'>
-                <Header chatId = { this.props.chatId }/>
+                <Header chatId = { this.props.chatName }/>
                 <div className="d-flex w-100 wrapper">
                         <ChatList />
                         <MessagesField />
