@@ -9,13 +9,12 @@ import SendIcon from "@material-ui/icons/Send";
 
 import { sendMessage, loadMessages } from "../../store/actions/messages_actions.js";
 import { bindActionCreators } from "redux";
-import connect from "react-redux/es/connect/connect";
+import connect from "react-redux/es/connect/connect.js";
 
 class MessagesField extends Component {
   constructor(props) {
     super(props);    
     this.state = {
-      isUserAnswer: false,
       text: "",
     };
     this.textInput = React.createRef();
@@ -25,14 +24,13 @@ class MessagesField extends Component {
     this.setState({ text: "" });
     if (sender == "Me") {
       this.sendMessage(text, sender);
-      this.setState.isUserAnswer = true;
     }
   };
 
   sendMessage = (text, sender) => {
     let { messages } = this.props;
     let messageId = Object.keys(messages).length + 1;
-    this.props.sendMessage(messageId, sender, text);    
+    this.props.sendMessage(messageId, sender, text);
   };
 
   handleChange = (evt) => {
@@ -43,12 +41,8 @@ class MessagesField extends Component {
 
   componentDidMount() {
     this.props.loadMessages();
-    this.textInput.current.focus();
+    // this.textInput.current.focus();
   }
-
-  componentDidUpdate() {
-    document.getElementById('message_field').scrollTo({ top: 999999 })
-}
  
   render() {
     let { messages } = this.props;

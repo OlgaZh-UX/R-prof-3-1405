@@ -11,13 +11,19 @@ export function initStore() {
   let initialStore = {};
 
   return createStore(
-    initialReducers(history),
+    initialReducers,
     initialStore,
-    compose(
-      applyMiddleware(routerMiddleware(history), ...middlewares),
-      window.__REDUX_DEVTOOLS_EXTENSION__
-        ? window.__REDUX_DEVTOOLS_EXTENSION__()
-        : () => {}
-    )
+    compose(applyMiddleware(...middlewares))
   );
+
+  // return createStore(
+  //   initialReducers(history),
+  //   initialStore,
+  //   compose(
+  //     applyMiddleware(routerMiddleware(history), ...middlewares),
+  //     window.__REDUX_DEVTOOLS_EXTENSION__
+  //       ? window.__REDUX_DEVTOOLS_EXTENSION__()
+  //       : () => {}
+  //   )
+  // );
 }

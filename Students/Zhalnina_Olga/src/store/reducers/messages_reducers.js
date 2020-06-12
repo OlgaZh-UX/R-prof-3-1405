@@ -2,8 +2,6 @@ import update from "react-addons-update";
 
 //import actions
 import {
-  CLOSE_RESPONDENT,
-  SELECT_RESPONDENT,
   SEND_MSG,
 } from "../actions/messages_actions.js";
 import { SUCCESS_MESSAGES_LOADING } from "../../../../../PR/6/src/store/actions/messages_actions.js";
@@ -34,26 +32,7 @@ export default function msgReducer(store = initialStore, action) {
         messages: { $set: action.payload },
       });
     }
-
-    case SELECT_RESPONDENT: {
-      return {
-        ...store,
-        respondent: action.sender,
-      };
-    }
-
-    case CLOSE_RESPONDENT: {
-      return {
-        ...store,
-        messages: {
-          1: {
-            sender: null,
-            text: "Выберите чат",
-          },
-        },
-      };
-    }
-
+    
     default:
       return store;
   }
